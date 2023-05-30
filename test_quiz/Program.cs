@@ -1,13 +1,22 @@
 ﻿using System;
+using System.Threading;
 namespace Projet_La_Manu_Quiz_by_Meriem_Alban_and_Marc;
 class Quiz
 {
     static void Main(string[] args)
     {
         //voir animation titre ?
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        /* Console.WriteLine("Bonjour et bienvenu dans notre agence de recrutement !\n");*/
+        // Animation du titre
+        string title = "Bonjour et bienvenue dans notre agence de recrutement !";
+        for (int i = 0; i < title.Length; i++)
+        {
+            Console.Write(title[i]);
+            Thread.Sleep(100); // Délai de 100 millisecondes entre chaque caractère
+        }
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine("Bonjour et bienvenu dans notre agence de recrutement !\n");
-        Console.WriteLine("Voici un QUIZ sur le C# qui nous servira à évaluer vos compétences.");
+        Console.WriteLine("\nVoici un QUIZ sur le C# qui nous servira à évaluer vos compétences.");
         Console.WriteLine("10 Questions mais ATTENTION ! Une seule réponse est possible par question !");
         Console.WriteLine("Alors appuyer sur la touche ENTRÉE et allons-y !\n");
         Console.ForegroundColor = ConsoleColor.White;
@@ -118,7 +127,7 @@ class Quiz
         Console.ReadLine();
 
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine("| Projet réalisé par Meriem, Alban et Marc | Aprenant Dot .NET au campus de La Manu Compiègne |");
+        Console.WriteLine("| Projet réalisé par Meriem, Alban et Marc | Apprenants Dot .NET au campus de La Manu Compiègne |");
         Console.ForegroundColor = ConsoleColor.White;
         Console.ReadLine();
 
