@@ -1,20 +1,28 @@
 ﻿using System;
+using System.Threading;
 namespace Projet_La_Manu_Quiz_by_Meriem_Alban_and_Marc;
 class Quiz
 {
     static void Main(string[] args)
     {
-        //voir animation titre ?
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        // Animation du titre
+        string title = "Bonjour et bienvenue dans notre agence de recrutement !";
+        for (int i = 0; i < title.Length; i++)
+        {
+            Console.Write(title[i]);
+            Thread.Sleep(100); // Délai de 100 millisecondes entre chaque caractère
+        }
+        //affichage de l'énoncé
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine("Bonjour et bienvenu dans notre agence de recrutement !\n");
-        Console.WriteLine("Voici un QUIZ sur le C# qui nous servira à évaluer vos compétences.");
+        Console.WriteLine("\nVoici un QUIZ sur le C# qui nous servira à évaluer vos compétences.");
         Console.WriteLine("10 Questions mais ATTENTION ! Une seule réponse est possible par question !");
         Console.WriteLine("Alors appuyer sur la touche ENTRÉE et allons-y !\n");
         Console.ForegroundColor = ConsoleColor.White;
         Console.ReadLine();
 
+        //déclaration du tableau des questions
         string[] questions = new string[10] {
-            // vérif réponse correct ?
             "Quelle est l'année de création du langage C# ?",
             "C# est un...",
             "Quelle est la variable correcte ?",
@@ -27,6 +35,7 @@ class Quiz
             "Quelle méthode est utilisée pour arrondir un nombre décimal à l'entier le plus proche en utilisant C# ?",
         };
 
+        //déclaration du tableau des réponses possible
         string[,] answers = new string[10, 4] {
             { "1971", "1981", "1991", "2001" },
             { "Language", "Framework", "Librairie", "CMS" },
@@ -40,36 +49,54 @@ class Quiz
             { "Math.Round()", "Math.Ceiling()", "Math.Floor()", "Math.Truncate()" }
         };
 
+        //déclaration du tableau des numéros des bonnes réponses possible
         int[] correctAnswers = new int[10] {
             4, 1, 4, 1, 1, 2, 3, 3, 1, 1
         };
 
+        //déclaration du tableau du text des réponses possible
         string[] correctAnswerDetails = new string[] {
             "2001", "Language", "int x = 3;", "(x == true);", "Float", "Long", "False", "Les délégués", "Convert.ToInt32()", "Math.Round()"
         };
 
+        // initialisation du score
         int score = 0;
 
+        // déclaration de la liste des réponses donné par le candidat
+        List<string> answerCandidat = new List<string> {};
+
+        // début de la boucle qui parcours toutes les questions
         for (int i = 0; i < 10; i++)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Question {i + 1}: {questions[i]}\n");
             Console.ForegroundColor = ConsoleColor.White;
 
+            // affichage des réponse possible
             for (int j = 0; j < 4; j++)
             {
                 Console.WriteLine($"{j + 1}. {answers[i, j]}");
             }
 
+            // début de la boucle pour vérification de l'entré par le candidat
             do
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("\nVotre réponse (entrez le numéro de votre réponse):");
                 Console.ForegroundColor = ConsoleColor.White;
+
+                // récupération de ce qui est entré par le candidat
                 string saisie = Console.ReadLine();
+
+                // vérification si l'entré est un int ou un string
                 int userAnswer;
                 if (int.TryParse(saisie, out userAnswer))
                 {
+
+                    // ajout de la reponse donnée dans la liste des réponses donné
+                    answerCandidat.Add(answers[i,userAnswer-1]);
+
+                    // vérification si la réponse est bonne ou non avec sortie de la boucle des verifications des entrés
                     if (userAnswer == correctAnswers[i])
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -99,6 +126,8 @@ class Quiz
         Console.ForegroundColor = ConsoleColor.White;
         Console.ReadLine();
 
+
+        // affichage du résultat du questionnaire
         Console.WriteLine("Récapitulatif de votre résultat:\n");
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine($"Votre score est de: {score} sur 10\n");
@@ -106,9 +135,24 @@ class Quiz
 
         Console.WriteLine("Les bonnes réponses étaient:\n");
 
+        // affichage des bonnes réponse et comparaison si l'entré été la bonne réponse
         for (int i = 0; i < 10; i++)
         {
-            Console.WriteLine($"Question {i + 1}: {correctAnswerDetails[i]}");
+            // délcaration des variables local
+            string reponseCorret = correctAnswerDetails[i];
+            string reponseDonne = answerCandidat[i];
+            if (reponseCorret == reponseDonne)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Question {i + 1}: {reponseCorret}");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Question {i + 1}: {reponseCorret}");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
 
         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -118,11 +162,9 @@ class Quiz
         Console.ReadLine();
 
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine("| Projet réalisé par Meriem, Alban et Marc | Aprenant Dot .NET au campus de La Manu Compiègne |");
+        Console.WriteLine("| Projet réalisé par Meriem, Alban et Marc | Apprenants Dot .NET au campus de La Manu Compiègne |");
         Console.ForegroundColor = ConsoleColor.White;
         Console.ReadLine();
 
     }
 }
-
-//TEST + Vérif orthographe !!!
